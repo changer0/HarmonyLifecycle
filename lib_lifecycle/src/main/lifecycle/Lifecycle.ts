@@ -1,5 +1,5 @@
 import { ArrayList } from '@kit.ArkTS';
-import { ILifecycleObserver } from './ILifecycleEvent';
+import { ILifecycleObserver } from './ILifecycleObserver';
 
 /**
  * 生命周期包装类
