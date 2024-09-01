@@ -1,0 +1,58 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/lemon/.ohos/config/default_LifecycleDem_oGDpjVKmNbhkqhK8CCX5pPEnngUsA1dF4jQlwbuXl5Q=.cer",
+          "storePassword": "0000001A4FCD9FC7D857CE41941F8555BFAEA5A5A5E0B71A484F728541A99C9B3935120F7A4486310681",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A9C7700A06BDF069AD951E0B35EA14586740EE600930E22B60E79076BE3CB53D0D7722E510C64",
+          "profile": "/Users/lemon/.ohos/config/default_LifecycleDem_oGDpjVKmNbhkqhK8CCX5pPEnngUsA1dF4jQlwbuXl5Q=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/lemon/.ohos/config/default_LifecycleDem_oGDpjVKmNbhkqhK8CCX5pPEnngUsA1dF4jQlwbuXl5Q=.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lib_lifecycle",
+      "srcPath": "./lib_lifecycle",
+    }
+  ]
+}
