@@ -6,7 +6,8 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "lib_lifecycle": "../lib_lifecycle"
+    "lib_lifecycle": "../lib_lifecycle",
+    "lib_livedata": "../lib_livedata"
   }
 }
 

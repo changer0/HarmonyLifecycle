@@ -1,74 +1,58 @@
 import { Lifecycle, LifecycleEvent } from 'lib_lifecycle';
+import { LiveData } from 'lib_livedata';
 
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
-
   @LifecycleEvent lifecycle: Lifecycle = new Lifecycle()
-  aboutToAppear(): void {
-    logger('old aboutToAppear called')
-    this.lifecycle.addObserver({
-      aboutToAppear: () => {
-        logger('aboutToAppear called')
-      },
-      onPageShow: () => {
-        logger('onPageShow called')
-      },
-      onPageHide: () => {
-        logger('onPageHide called')
-      },
-      aboutToDisappear: () => {
-        logger('aboutToDisappear called')
-      },
-      onBackPress: () => {
-        logger('onBackPress called')
-        return false
-      },
-    })
-  }
-
-
-
 
   /**
-   * 返回true表示页面自己处理返回逻辑，不进行页面路由；返回false表示使用默认的路由返回逻辑，不设置返回值按照false处理
-   * @returns
+   * 订阅数据变化 示例
    */
-  onBackPress(): boolean | void {
-    logger('old onBackPress called')
-    return false
-  }
+  helloLivedata: LiveData<string> = new LiveData<string>();
 
-  onPageShow(): void {
-    logger('old onPageShow called')
-  }
+  aboutToAppear(): void {
+    logger('old aboutToAppear called')
+    this.helloLivedata.setValue(`这是旧的值: ${Math.random()*100}`)
+    this.helloLivedata.observe(this.lifecycle, (value: string) => {
+      logger(`new value: ${value}`)
+    })
 
-  onPageHide(): void {
-    logger('old onPageHide called')
+    this.lifecycle.addObserver({
+      onPageHide: () => {
+        logger(`onPageHide called !!!!`)
+      },
+      onPageShow: () => {
+        logger(`onPageShow called !!!!`)
+      },
+      onBackPress: (): boolean => {
+        logger(`onBackPressed called !!!!`)
+        return true;
+      }
+    })
   }
 
   aboutToDisappear(): void {
     logger('old aboutToDisappear called')
   }
 
-
   build() {
     RelativeContainer() {
-      Text(this.message)
-        .id('HelloWorld')
+      Text("验证 LiveData")
+        .id('_id_text')
         .fontSize(50)
         .fontWeight(FontWeight.Bold)
         .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
+          center:{ anchor: '__container__', align: VerticalAlign.Center },
           middle: { anchor: '__container__', align: HorizontalAlign.Center }
+        })
+        .onClick((event) => {
+          this.helloLivedata.setValue(`这是新的值: ${Math.random()*100}`)
         })
     }
     .height('100%')
     .width('100%')
   }
-
-
 }
 
 function logger(msg: string) {

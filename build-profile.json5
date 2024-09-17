@@ -53,6 +53,10 @@
     {
       "name": "lib_lifecycle",
       "srcPath": "./lib_lifecycle",
+    },
+    {
+      "name": "lib_livedata",
+      "srcPath": "./lib_livedata",
     }
   ]
 }
