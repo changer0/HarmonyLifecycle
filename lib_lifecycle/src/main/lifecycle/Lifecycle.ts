@@ -1,5 +1,6 @@
 import { ArrayList } from '@kit.ArkTS';
 import { ILifecycleObserver } from './ILifecycleObserver';
+import { logger } from './Logger';
 
 /**
  * 生命周期包装类
@@ -16,7 +17,7 @@ export class Lifecycle {
    */
   aboutToAppear() {
     this.mObserverList?.forEach((observer) => {
-      observer.aboutToAppear()
+      observer.aboutToAppear?.()
     })
   }
 
@@ -26,7 +27,7 @@ export class Lifecycle {
    */
   onPageShow() {
     this.mObserverList?.forEach((observer) => {
-      observer.onPageShow()
+      observer.onPageShow?.()
     })
   }
 
@@ -36,7 +37,7 @@ export class Lifecycle {
    */
   onPageHide() {
     this.mObserverList?.forEach((observer) => {
-      observer.onPageHide()
+      observer.onPageHide?.()
     })
   }
 
@@ -46,8 +47,10 @@ export class Lifecycle {
    */
   aboutToDisappear() {
     this.mObserverList?.forEach((observer) => {
-      observer.aboutToDisappear()
+      observer.aboutToDisappear?.()
     })
+    // 释放自己,防止内存泄漏
+    this.release();
   }
 
   /**
@@ -60,7 +63,7 @@ export class Lifecycle {
     let ret = false;
     this.mObserverList?.forEach((observer) => {
       //只要有一个观察者要处理,就不再让系统处理
-      ret = ret || observer.onBackPress()
+      ret = ret || observer.onBackPress?.()
     })
     return ret;
   }
@@ -88,6 +91,7 @@ export class Lifecycle {
    * 释放所有观察者
    */
   release() {
+    logger("release() called!")
     this.mObserverList?.clear();
     this.mObserverList = null;
   }
