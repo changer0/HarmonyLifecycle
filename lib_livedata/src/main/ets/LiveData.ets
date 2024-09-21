@@ -36,6 +36,20 @@ export class LiveData<T> {
     })
   }
 
+
+  /**
+   * 订阅数据变化, 不需要生命周期管理
+   * @param lifecycle 生命周期
+   * @param observer 观察者函数
+   * @param sticky 是否为粘性订阅，默认为 true
+   */
+  observeForever(observer: Observer<T>, sticky: boolean = true): void {
+    this.observers.add(observer);
+    if (sticky && this._value !== undefined) {
+      observer(this._value);
+    }
+  }
+
   /**
    * 移除观察者
    * @param observer 要移除的观察者函数
