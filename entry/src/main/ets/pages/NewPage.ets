@@ -1,24 +1,21 @@
 import { Lifecycle, LifecycleEvent } from 'lib_lifecycle';
 import { LiveData } from 'lib_livedata';
-import { router } from '@kit.ArkUI';
 
 @Entry
 @Component
-struct Index {
+struct NewPage {
+  // 生命周期
   @LifecycleEvent lifecycle: Lifecycle = new Lifecycle()
-
   /**
    * 订阅数据变化 示例
    */
-  indexLivedata: LiveData<string> = new LiveData<string>();
+  newPageLivedata: LiveData<string> = new LiveData<string>();
 
   aboutToAppear(): void {
-    // logger('old aboutToAppear called')
-    this.indexLivedata.setValue(`这是旧的值: ${Math.random()*100}`)
-    this.indexLivedata.observe(this.lifecycle, (value: string) => {
-      logger(`new value: ${value}`)
+    this.newPageLivedata.setValue("newPageLivedata 粘性数据测试")
+    this.newPageLivedata.observe(this.lifecycle, (value: string) => {
+      logger(`接收到新数据: ${value}`)
     })
-
 
     this.lifecycle.addObserver({
       aboutToAppear: () => {
@@ -40,25 +37,13 @@ struct Index {
     })
   }
 
-  aboutToDisappear(): void {
-    // logger('old aboutToDisappear called')
-  }
-
   build() {
     Column() {
-      Text("Index页面")
-      Button("修改indexLivedata")
+      Text("NewPage页面")
+      Button("修改newPageLivedata")
         .margin({ top: 20})
         .onClick((event) => {
-          this.indexLivedata.setValue(`indexLivedata 设置新的数据: ${Math.random()*100}`)
-        })
-      Button("跳转新页面")
-        .margin({ top: 20})
-        .onClick((event) => {
-          logger("跳转 NewPage")
-          router.pushUrl({
-            url: "pages/NewPage"
-          })
+          this.newPageLivedata.setValue(`newPageLivedata 设置新的数据: ${Math.random()*100}`)
         })
     }
     .height('100%')
@@ -67,6 +52,6 @@ struct Index {
 }
 
 function logger(msg: string) {
-  console.log(`[ZLL][PAGE][Index] ${msg}`);
+  console.log(`[ZLL][PAGE][NewPage] ${msg}`);
 }
 

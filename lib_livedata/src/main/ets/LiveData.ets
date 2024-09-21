@@ -85,7 +85,3 @@ export class LiveData<T> {
     });
   }
 }
-
-function log(msg: string) {
-  console.log(`[LIVE_DATA] ${msg}`);
-}

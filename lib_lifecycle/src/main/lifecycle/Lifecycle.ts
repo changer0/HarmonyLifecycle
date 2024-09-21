@@ -16,6 +16,7 @@ export class Lifecycle {
    * 组件即将出现时回调该接口，具体时机为在创建自定义组件的新实例后，在执行其build()函数之前执行。
    */
   aboutToAppear() {
+    logger("aboutToAppear() called!")
     this.mObserverList?.forEach((observer) => {
       observer.aboutToAppear?.()
     })
@@ -26,6 +27,7 @@ export class Lifecycle {
    * 页面每次显示时触发一次，包括路由过程、应用进入前台等场景。
    */
   onPageShow() {
+    logger("onPageShow() called!")
     this.mObserverList?.forEach((observer) => {
       observer.onPageShow?.()
     })
@@ -36,6 +38,7 @@ export class Lifecycle {
    * 页面每次隐藏时触发一次，包括路由过程、应用进入后台等场景。
    */
   onPageHide() {
+    logger("onPageHide() called!")
     this.mObserverList?.forEach((observer) => {
       observer.onPageHide?.()
     })
@@ -46,11 +49,10 @@ export class Lifecycle {
    * aboutToDisappear函数在自定义组件析构销毁之前执行
    */
   aboutToDisappear() {
+    logger("aboutToDisappear() called!")
     this.mObserverList?.forEach((observer) => {
       observer.aboutToDisappear?.()
     })
-    // 释放自己,防止内存泄漏
-    this.release();
   }
 
   /**
@@ -60,6 +62,7 @@ export class Lifecycle {
    * @returns
    */
   onBackPress(): boolean | void {
+    logger("onBackPress() called!")
     let ret = false;
     this.mObserverList?.forEach((observer) => {
       //只要有一个观察者要处理,就不再让系统处理
